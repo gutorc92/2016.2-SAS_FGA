@@ -7,19 +7,24 @@ from django.contrib.auth.models import User
 from .models import UserProfile
 from django.contrib import messages
 from sas.views import index
+from django.views import View
 
-def new_user(request):
-	if request.method == "POST":
-		form = NewUserForm(request.POST, UserProfile)
-		if not(form.is_valid()):
-			return render(request, 'user/newUser.html', {'form_user': form})
-		else:
+class NewUserView(View):
+	form_class = NewUserForm
+	template_name = 'user/newUser.html'
+
+	def get(self, request, *args, **kwargs):
+		form = self.form_class
+		return render(request, self.template_name, {'form_user': form})
+
+	def post(self, request, *args, **kwargs):
+		form = self.form_class(request.POST)
+		if form.is_valid():
 			user_profile = form.save()
 			messages.success(request,_('You have been registered'))
 			return index(request)
-	else:
-		form = NewUserForm()
-		return render(request, 'user/newUser.html', {'form_user': form})
+
+		return render(request, self.template_name, {'form_user': form})
 
 
 def list_user(request):
