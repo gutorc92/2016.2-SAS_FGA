@@ -7,7 +7,7 @@ Background:
 
 Scenario: Inexistent booking between start date and end date
 	When I login in with email "lucas@gmail.com" and password "123456"
-	Then I visit site page "/booking/searchbookingg/"
+	Then I visit site page "/booking/searchbooking/"
 	And I choose "Room x Period"
 	And I select "UAC" from "Building"
 	And I select "UAC | FGA-I1" from "Place"
