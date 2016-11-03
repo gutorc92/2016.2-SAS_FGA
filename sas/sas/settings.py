@@ -85,9 +85,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'sas',
-        'USER': 'postgres',
-        'PASSWORD': 'sas123' ,
-        'HOST': '172.17.0.3',
+        'USER': 'sas',
+        'PASSWORD': '' ,
+        'HOST': '127.0.0.1',
         'PORT': '5432',
     }
 }
