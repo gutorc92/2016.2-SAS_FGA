@@ -7,6 +7,13 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.core.exceptions import ValidationError
 
+class UserProfileForm(forms.Form):
+    email = forms.EmailField(
+        label=_('Email:'),
+        widget=forms.TextInput(attrs={'placeholder': 'example@email.com'}))
+    password = forms.CharField(
+        label=_('Password:'),
+        widget=forms.PasswordInput(attrs={'placeholder': ''}))
 
 class LoginForm(forms.Form):
     email = forms.EmailField(
@@ -35,7 +42,7 @@ class PasswordForm(forms.Form):
     password = forms.CharField(
         label=_('Password:'),
         widget=forms.PasswordInput(attrs={'placeholder': ''}))
-    new_password = forms.CharField(
+    password = forms.CharField(
         label=_('New Password:'),
         widget=forms.PasswordInput(attrs={'placeholder': ''}))
     renew_password = forms.CharField(
@@ -43,7 +50,7 @@ class PasswordForm(forms.Form):
         widget=forms.PasswordInput(attrs={'placeholder': ''}))
 
     def save(self, user):
-        password = self.cleaned_data.get("new_password")
+        password = self.cleaned_data.get("password")
         user.set_password(password)
         user.save()
 
@@ -58,7 +65,7 @@ class PasswordForm(forms.Form):
 
     def clean(self):
         cleaned_data = super(PasswordForm, self).clean()
-        password1 = cleaned_data.get('new_password')
+        password1 = cleaned_data.get('password')
         password2 = cleaned_data.get('renew_password')
         if password1 and password2 and password1 != password2:
             raise ValidationError({'renew_password': [_('Passwords \
