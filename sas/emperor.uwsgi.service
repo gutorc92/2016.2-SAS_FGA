@@ -3,7 +3,7 @@ Description=uWSGI Emperor
 After=syslog.target
 
 [Service]
-ExecStart=uwsgi --ini /usr/src/2016-2-SAS_FGA/sas/sas.ini
+ExecStart=/usr/local/bin/uwsgi --ini /usr/src/2016.2-SAS_FGA/sas/sas.ini
 # Requires systemd version 211 or newer
 RuntimeDirectory=uwsgi
 Restart=always
